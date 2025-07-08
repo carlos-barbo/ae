@@ -1,75 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-  <meta name="description" content="AR Code 2RU2bSjXr" />
-  <meta name="keywords" content="ar, code, 2RU2bSjXr, ar code, arcode, ar-code" />
-  <meta name="robots" content="noindex" />
-  <title>AR Code</title>
-
-  <!-- Model Viewer oficial -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
-  <link href="css/webar-loading.css" rel="stylesheet" />
-  <link href="css/webarslam4.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AR Quick Look Automático</title>
 </head>
 <body>
 
-<div id="container"></div>
-<div id="overlay"><div id="splash"></div></div>
+  <!-- Link invisível para abrir Quick Look no iOS -->
+  <a
+    id="quickLookLink"
+    href="https://ae-sand.vercel.app/files/AR-Code-1751948288578.usdz"
+    rel="ar"
+    style="display:none;">
+    Abrir AR
+  </a>
 
-<div id="loadingIcon">
-  <div id="loadingcontainer">
-    <div class="loading"></div>
-    <div id="detectionText">Detecção de ambiente AR</div>
-  </div>
-</div>
+  <script>
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-<div id="infotext">Aponte para uma superfície</div>
-
-<div id="linkbutton">
-  <span id="linktext" class="text-content">
-    <strong>Carlos Dutra</strong><br />
-  </span>
-</div>
-
-<div id="closingbutton"><strong>X</strong></div>
-
-<!-- Fallback WebAR -->
-<div id="immersivear">
-  <div class="button-container">
-    <model-viewer
-      src="/files/AR-Code-1751948288578.glb"
-      ios-src="/files/AR-Code-1751948288578.usdz"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      ar-scale="auto"
-      bounds="tight"
-      enable-pan
-      reveal="auto"
-      style="width: 100%; height: 100vh;">
-    </model-viewer>
-  </div>
-</div>
-
-<script>
-  const iosURL = "/files/AR-Code-1751948288578.usdz";
-  const androidIntent = `intent://arvr.google.com/scene-viewer/1.0?file=https://seusite.com.br/files/AR-Code-1751948288578.glb&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=https://seusite.com.br;end;`;
-
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-  if (/iPhone|iPad|iPod/.test(userAgent)) {
-    // iOS → Quick Look (abre automático)
-    window.location.href = iosURL;
-  } else if (/android/i.test(userAgent)) {
-    // Android → Scene Viewer
-    window.location.href = androidIntent;
-  }
-</script>
-
-<!-- Manter scripts se quiser WebAR para desktop -->
-<script type="module" src="js/webar-slam-1.5.js"></script>
+    if (/iPhone|iPad|iPod/.test(userAgent)) {
+      // iOS: simula clique para abrir Quick Look automaticamente
+      document.getElementById('quickLookLink').click();
+    } else if (/android/i.test(userAgent)) {
+      // Android: redireciona para Scene Viewer
+      const glbURL = encodeURIComponent('https://ae-sand.vercel.app/files/AR-Code-1751948288578.glb');
+      const intentURL = `intent://arvr.google.com/scene-viewer/1.0?file=${glbURL}&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=https://seusite.com;end;`;
+      window.location.href = intentURL;
+    }
+  </script>
 
 </body>
 </html>
