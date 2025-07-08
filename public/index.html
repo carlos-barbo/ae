@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<meta name="description" content="AR Code 2RU2bSjXr" />
-<meta name="keywords" content="ar, code, 2RU2bSjXr, ar code, arcode, ar-code" />
-<meta name="robots" content="noindex" />
-<title>AR Code</title> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <meta name="description" content="AR Code 2RU2bSjXr" />
+  <meta name="keywords" content="ar, code, 2RU2bSjXr, ar code, arcode, ar-code" />
+  <meta name="robots" content="noindex" />
+  <title>AR Code</title>
 
-<!-- Model Viewer oficial CDN -->
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <!-- Model Viewer oficial -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-<link href="css/webar-loading.css" rel="stylesheet" />
-<link href="css/webarslam4.css" rel="stylesheet" />
+  <link href="css/webar-loading.css" rel="stylesheet" />
+  <link href="css/webarslam4.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -36,6 +36,7 @@
 
 <div id="closingbutton"><strong>X</strong></div>
 
+<!-- Fallback WebAR -->
 <div id="immersivear">
   <div class="button-container">
     <model-viewer
@@ -46,18 +47,28 @@
       ar-scale="auto"
       bounds="tight"
       enable-pan
-      reveal="manual">
-      <button id="buttonar" slot="ar-button"><strong>Entrar em AR</strong></button>
+      reveal="auto"
+      style="width: 100%; height: 100vh;">
     </model-viewer>
   </div>
 </div>
 
 <script>
-  var modelid = "AR-Code-1751948288578";
-  var arcodeid = "2RU2bSjXr";
-  var bannerlink = "https://ar-code.com/upgrade";
+  const iosURL = "/files/AR-Code-1751948288578.usdz";
+  const androidIntent = `intent://arvr.google.com/scene-viewer/1.0?file=https://seusite.com.br/files/AR-Code-1751948288578.glb&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=https://seusite.com.br;end;`;
+
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if (/iPhone|iPad|iPod/.test(userAgent)) {
+    // iOS → Quick Look (abre automático)
+    window.location.href = iosURL;
+  } else if (/android/i.test(userAgent)) {
+    // Android → Scene Viewer
+    window.location.href = androidIntent;
+  }
 </script>
 
+<!-- Manter scripts se quiser WebAR para desktop -->
 <script type="module" src="js/webar-slam-1.5.js"></script>
 
 </body>
